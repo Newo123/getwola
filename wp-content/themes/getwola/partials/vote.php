@@ -1,0 +1,44 @@
+<div class="rate" data-post-id="<?= get_the_ID(); ?>">
+  <div itemprop="interactionStatistic" itemscope itemtype="https://schema.org/InteractionCounter">
+    <link itemprop="interactionType" href="https://schema.org/LikeAction" />
+    <div class="rate-content">
+      <h2 class="rate-title">Была ли полезна статья?</h2>
+      <p class="rate-positive">
+        Положительно оценили
+        <span class="rate-positive-quantity">
+          <span itemprop="userInteractionCount">
+            <?= get_post_meta(get_the_ID(), 'likes_count', true) ?: 0 ?>
+          </span>
+          пользователей
+        </span>
+      </p>
+    </div>
+  </div>
+
+  <div class="rate-controls">
+
+    <button type="submit" name="vote" value="like" class="rate-button like">
+      Да
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M9 9.33333L9 18.9333L10.3364 19.3842C11.5453 19.7921 12.8113 20 14.0857 20H18.1628C19.5757 20 20.7922 18.9906 21.0693 17.5883L21.9412 13.1757C22.324 11.2388 20.7849 9.46259 18.8376 9.59399L14.7964 9.86667L15.1346 6.10069C15.236 4.97262 14.3584 4 13.2392 4C12.5707 4 11.9512 4.35501 11.6072 4.93522L9 9.33333Z"
+          fill="#22BA59" />
+        <path opacity="0.5"
+          d="M2 9C2 8.44772 2.44772 8 3 8H6C6.55229 8 7 8.44772 7 9L7 19C7 19.5523 6.55229 20 6 20H3C2.44772 20 2 19.5523 2 19L2 9Z"
+          fill="#22BA59" fill-opacity="0.8" />
+      </svg>
+    </button>
+
+    <button type="submit" name="vote" value="dislike" class="rate-button dislike">
+      Нет
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M9 9.33333L9 18.9333L10.3364 19.3842C11.5453 19.7921 12.8113 20 14.0857 20H18.1628C19.5757 20 20.7922 18.9906 21.0693 17.5883L21.9412 13.1757C22.324 11.2388 20.7849 9.46259 18.8376 9.59399L14.7964 9.86667L15.1346 6.10069C15.236 4.97262 14.3584 4 13.2392 4C12.5707 4 11.9512 4.35501 11.6072 4.93522L9 9.33333Z"
+          fill="#22BA59" />
+        <path opacity="0.5"
+          d="M2 9C2 8.44772 2.44772 8 3 8H6C6.55229 8 7 8.44772 7 9L7 19C7 19.5523 6.55229 20 6 20H3C2.44772 20 2 19.5523 2 19L2 9Z"
+          fill="#22BA59" fill-opacity="0.8" />
+      </svg>
+    </button>
+  </div>
+</div>

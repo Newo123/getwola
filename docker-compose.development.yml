@@ -1,0 +1,62 @@
+services:
+  # DATABASE
+  database:
+    container_name: ${CONTAINER_PREFIX}-database
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DATABASE_NAME}
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+      MYSQL_USER: ${DATABASE_USER}
+    ports:
+      - 3306:3306
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+        - internal
+  
+    # PhpMyAdmin
+  phpmyadmin:
+    container_name: ${CONTAINER_PREFIX}-phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: database
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+    ports:
+      - 8081:80
+    networks:
+        - internal
+
+    # Wordpress
+  wordpress:
+    depends_on:
+      - database
+    container_name: ${CONTAINER_PREFIX}-wordpress
+    image: wordpress:php8.4-apache
+    restart: unless-stopped
+    user: '${UID:-1000}:${GID:-1000}'
+    env_file:
+      - ./.env
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: database:3306
+      WORDPRESS_DB_NAME: ${DATABASE_NAME}
+      WORDPRESS_DB_USER: ${DATABASE_USER}
+      WORDPRESS_DB_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - ./:/var/www/html:rw
+      - ./php.ini:/usr/local/etc/php/conf.d/custom.ini:ro
+    networks:
+        - internal
+
+
+volumes:
+  dbdata:
+
+networks:
+  internal:
+    driver: bridge

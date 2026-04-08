@@ -1,0 +1,468 @@
+@font-face {
+  font-family: Mulish;
+  font-display: swap;
+  src: url("../fonts/Mulish-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Mulish;
+  font-display: swap;
+  src: url("../fonts/Mulish-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Mulish;
+  font-display: swap;
+  src: url("../fonts/Mulish-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Mulish;
+  font-display: swap;
+  src: url("../fonts/Mulish-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Unbounded;
+  font-display: swap;
+  src: url("../fonts/Unbounded-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Unbounded;
+  font-display: swap;
+  src: url("../fonts/Unbounded-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Unbounded;
+  font-display: swap;
+  src: url("../fonts/Unbounded-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Unbounded;
+  font-display: swap;
+  src: url("../fonts/Unbounded-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul,
+li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --font-primary: "Unbounded";
+  --font-secondary: "Mulish";
+  --color-blue: #2673ff;
+  --color-pink: #ff5959;
+  --color-green: #22ba59;
+  --color-accent: #40e0d0;
+  --color-grey: #9c9eb7;
+  --color-lightgrey: #f7f7fa;
+  --color-text: #1f1f1f;
+  --color-text-secondary: #737373;
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+
+body {
+  font-family: var(--font-secondary);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.main {
+  padding-block: 40px;
+}
+
+.container {
+  padding-inline: 60px;
+}
+
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 12px;
+  font-family: var(--font-secondary);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--color-grey);
+}
+
+.breadcrumbs li a {
+  transition: 0.3s ease;
+}
+
+@media (any-hover: hover) {
+  .breadcrumbs li a:hover {
+    color: var(--color-text);
+    text-decoration: underline;
+  }
+}
+
+.breadcrumbs li:not(:last-of-type)::after {
+  content: "/";
+  margin-left: 12px;
+}
+
+.subscribe {
+  font-family: var(--font-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 18px;
+  gap: 20px;
+  color: white;
+  background-color: var(--color-pink);
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.subscribe::after {
+  content: "";
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: url(../icons/union.svg) center/cover no-repeat;
+}
+
+.subscribe > * {
+  position: relative;
+  z-index: 100;
+}
+
+.subscribe > svg {
+  max-width: 245px;
+}
+
+.subscribe-text {
+  font-size: 18px;
+  line-height: 120%;
+  font-weight: 600;
+  position: relative;
+  text-align: center;
+}
+
+.subscribe-button {
+  width: 100%;
+  font-family: inherit;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: 16px;
+  border: none;
+  border-radius: 8px;
+  gap: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  background-color: var(--color-blue);
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.subscribe-button::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  aspect-ratio: 1;
+  background: url(../icons/plus.svg) center/contain no-repeat;
+}
+
+@media (any-hover: hover) {
+  .subscribe-button:hover {
+    transform: scale(1.05);
+  }
+}
+.overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(31, 31, 31, 0.75);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease;
+}
+
+.overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: white;
+  border-radius: 12px;
+  padding: 24px 12px 12px 12px;
+  width: 375px;
+  z-index: 200;
+}
+
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.modal-title {
+  font-family: var(--font-primary);
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.modal-close-btn {
+  width: 32px;
+  aspect-ratio: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f7f7fa;
+  border: 1px solid rgba(136, 136, 136, 0.2);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-form-error {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 130%;
+  color: #c53030;
+}
+
+.modal-input-wrapper {
+  position: relative;
+}
+
+.modal-form input[type="email"] {
+  padding: 14px;
+  padding-bottom: 0;
+  width: 100%;
+  height: 60px;
+  color: var(--color-text);
+  font-family: var(--font-secondary);
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  background-color: #f7f7fa;
+  border: 1px solid rgba(136, 136, 136, 0.2);
+  transition: 0.3s ease;
+}
+
+.modal-form input:focus {
+  outline: none;
+  border-color: #888888;
+}
+.modal-form input::placeholder {
+  font-size: 16px;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 16px;
+  transition: 0.1s ease;
+}
+
+.modal-form input:focus::placeholder {
+  opacity: 0;
+}
+
+.modal-input-label {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(100%);
+  position: absolute;
+  top: 10px;
+  left: 16px;
+  transition: 0.1s ease;
+}
+
+.modal-input-wrapper:has(input:focus) .modal-input-label {
+  opacity: 1;
+  transform: none;
+}
+
+.modal-policy {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #888888;
+  font-size: 12px;
+  line-height: 130%;
+  font-weight: 600;
+}
+
+.modal-policy p {
+  max-width: 215px;
+}
+
+.modal-policy a {
+  text-decoration: underline;
+  transition: 0.3s ease;
+}
+
+.modal-form input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  background-color: #f7f7fa;
+  background-image: none;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 12px 12px;
+  border: 1px solid rgba(136, 136, 136, 0.2);
+  border-radius: 4px;
+  cursor: pointer;
+  transition:
+    border-color 0.3s ease,
+    background-color 0.3s ease;
+  vertical-align: middle;
+}
+
+.modal-form input[type="checkbox"]:checked {
+  background-image: url(../icons/check.svg);
+}
+
+.modal-form input[type="checkbox"]:focus-visible {
+  outline: 2px solid #888888;
+  outline-offset: 2px;
+}
+
+.modal-submit-btn {
+  width: 100%;
+  height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-accent);
+  color: var(--color-text);
+  font-family: var(--font-secondary);
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+@media (any-hover: hover) {
+  .modal-policy a:hover {
+    color: var(--color-text);
+  }
+
+  .modal-submit-btn:hover {
+    opacity: 0.8;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .container {
+    padding-inline: 40px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .container {
+    padding-inline: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main {
+    padding-block: 24px;
+  }
+
+  .container {
+    padding-inline: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    padding-inline: 12px;
+  }
+
+  .modal {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}

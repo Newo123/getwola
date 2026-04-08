@@ -1,0 +1,69 @@
+07-04-2026 15:33:19 - INFO  - 9.2.1 - 3766 - 7,0 МБ/256 МБ - admin > Start upgrade from 0.0.0
+07-04-2026 15:33:19 - INFO  - 9.2.1 - 3766 - 6,9 МБ/256 МБ - admin > Array
+(
+    [wp_newsletter_emails] => Created table `wp_newsletter_emails`
+)
+
+07-04-2026 15:33:19 - INFO  - 9.2.1 - 3766 - 6,9 МБ/256 МБ - admin > Array
+(
+    [wp_newsletter_sent] => Created table `wp_newsletter_sent`
+)
+
+07-04-2026 15:33:19 - INFO  - 9.2.1 - 3766 - 6,9 МБ/256 МБ - admin > Array
+(
+    [wp_newsletter] => Created table `wp_newsletter`
+)
+
+07-04-2026 15:33:19 - INFO  - 9.2.1 - 3766 - 6,9 МБ/256 МБ - admin > Array
+(
+    [wp_newsletter_user_logs] => Created table `wp_newsletter_user_logs`
+)
+
+07-04-2026 15:33:19 - INFO  - 9.2.1 - 3766 - 6,9 МБ/256 МБ - admin > Array
+(
+    [wp_newsletter_user_meta] => Created table `wp_newsletter_user_meta`
+)
+
+07-04-2026 15:33:19 - INFO  - 9.2.1 - 3766 - 6,9 МБ/256 МБ - admin > Array
+(
+    [wp_newsletter_stats] => Created table `wp_newsletter_stats`
+)
+
+07-04-2026 15:33:19 - INFO  - 9.2.1 - 3766 - 6,9 МБ/256 МБ - admin > Array
+(
+    [wp_newsletter_logs] => Created table `wp_newsletter_logs`
+)
+
+07-04-2026 15:33:19 - INFO  - 9.2.1 - 3766 - 6,9 МБ/256 МБ - admin > Backing up options of 0.0.0
+07-04-2026 15:33:19 - INFO  - 9.2.1 - 3766 - 6,9 МБ/256 МБ - admin > End
+07-04-2026 19:40:50 - INFO  - 9.2.1 - 9574 - 7,0 МБ/256 МБ - admin > Start upgrade from 9.2.1
+07-04-2026 19:40:50 - INFO  - 9.2.1 - 9574 - 6,9 МБ/256 МБ - admin > Array
+(
+)
+
+07-04-2026 19:40:50 - INFO  - 9.2.1 - 9574 - 6,9 МБ/256 МБ - admin > Array
+(
+)
+
+07-04-2026 19:40:50 - INFO  - 9.2.1 - 9574 - 7,0 МБ/256 МБ - admin > Array
+(
+)
+
+07-04-2026 19:40:50 - INFO  - 9.2.1 - 9574 - 6,9 МБ/256 МБ - admin > Array
+(
+)
+
+07-04-2026 19:40:50 - INFO  - 9.2.1 - 9574 - 6,9 МБ/256 МБ - admin > Array
+(
+)
+
+07-04-2026 19:40:50 - INFO  - 9.2.1 - 9574 - 6,9 МБ/256 МБ - admin > Array
+(
+)
+
+07-04-2026 19:40:50 - INFO  - 9.2.1 - 9574 - 6,9 МБ/256 МБ - admin > Array
+(
+)
+
+07-04-2026 19:40:50 - INFO  - 9.2.1 - 9574 - 6,9 МБ/256 МБ - admin > Backing up options of 9.2.1
+07-04-2026 19:40:50 - INFO  - 9.2.1 - 9574 - 7,1 МБ/256 МБ - admin > End
