@@ -124,6 +124,54 @@
       sync();
     });
 
+    const SWIPE_MIN_PX = 48;
+    const SWIPE_DOMINANCE = 1.2;
+
+    let touchSwipeActive = false;
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    wrapper.addEventListener(
+      "touchstart",
+      (e) => {
+        if (e.touches.length !== 1) return;
+        touchSwipeActive = true;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      },
+      { passive: true },
+    );
+
+    wrapper.addEventListener(
+      "touchcancel",
+      () => {
+        touchSwipeActive = false;
+      },
+      { passive: true },
+    );
+
+    wrapper.addEventListener(
+      "touchend",
+      (e) => {
+        if (!touchSwipeActive) return;
+        touchSwipeActive = false;
+        if (e.changedTouches.length !== 1) return;
+        const t = e.changedTouches[0];
+        const dx = t.clientX - touchStartX;
+        const dy = t.clientY - touchStartY;
+        if (Math.abs(dx) < SWIPE_MIN_PX) return;
+        if (Math.abs(dx) < Math.abs(dy) * SWIPE_DOMINANCE) return;
+
+        if (dx < 0) {
+          index += step;
+        } else {
+          index -= step;
+        }
+        sync();
+      },
+      { passive: true },
+    );
+
     const ro = new ResizeObserver(() => sync());
     ro.observe(wrapper);
 
@@ -154,12 +202,110 @@
   });
 })();
 
+const SHARE_DESKTOP_MIN_WIDTH_PX = 769;
+
 document.addEventListener("DOMContentLoaded", () => {
   const postContentBtn = document.getElementById("post-content-btn");
 
   postContentBtn.addEventListener("click", () => {
     postContentBtn.classList.toggle("active");
   });
+
+  const shareBtn = document.getElementById("post-share-btn");
+  const sharePopup = document.getElementById("post-share-popup");
+  const shareWrap = document.querySelector(".post-share-wrap");
+
+  if (shareBtn && sharePopup && shareWrap) {
+    function getShareUrl() {
+      const fromSchema =
+        document.querySelector('link[itemprop="url"]')?.getAttribute("href") ||
+        document
+          .querySelector('link[itemprop="mainEntityOfPage"]')
+          ?.getAttribute("href");
+      if (fromSchema) return fromSchema;
+      return window.location.href;
+    }
+
+    function getShareTitle() {
+      const h1 = document.querySelector(".post-title");
+      const t = h1?.textContent?.trim();
+      return t || document.title;
+    }
+
+    function syncShareLinks() {
+      const url = getShareUrl();
+      const encUrl = encodeURIComponent(url);
+      const encTitle = encodeURIComponent(getShareTitle());
+
+      const tg = sharePopup.querySelector('a[href*="telegram"]');
+      if (tg)
+        tg.href = `https://telegram.me/share/url?url=${encUrl}&text=${encTitle}`;
+
+      const vk = sharePopup.querySelector('a[href*="vk.com"]');
+      if (vk) vk.href = `https://vk.com/share.php?url=${encUrl}`;
+
+      const max = sharePopup.querySelector('a[href*="max.com"]');
+      if (max) max.href = `https://max.com/share?url=${encUrl}`;
+    }
+
+    function isDesktopShare() {
+      return window.matchMedia(`(min-width: ${SHARE_DESKTOP_MIN_WIDTH_PX}px)`)
+        .matches;
+    }
+
+    function closeSharePopup() {
+      sharePopup.classList.remove("is-open");
+      sharePopup.setAttribute("aria-hidden", "true");
+      shareBtn.setAttribute("aria-expanded", "false");
+    }
+
+    function openSharePopup() {
+      syncShareLinks();
+      sharePopup.setAttribute("aria-hidden", "false");
+      sharePopup.classList.add("is-open");
+      shareBtn.setAttribute("aria-expanded", "true");
+    }
+
+    function toggleSharePopup() {
+      if (sharePopup.classList.contains("is-open")) closeSharePopup();
+      else openSharePopup();
+    }
+
+    syncShareLinks();
+
+    shareBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (isDesktopShare()) {
+        toggleSharePopup();
+        return;
+      }
+      const shareData = {
+        title: getShareTitle(),
+        url: getShareUrl(),
+      };
+      if (navigator.share) {
+        navigator.share(shareData).catch(() => {});
+      } else {
+        syncShareLinks();
+        openSharePopup();
+      }
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!sharePopup.classList.contains("is-open")) return;
+      if (!shareWrap.contains(e.target)) closeSharePopup();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeSharePopup();
+    });
+
+    window.addEventListener("resize", () => {
+      if (!isDesktopShare() && sharePopup.classList.contains("is-open")) {
+        closeSharePopup();
+      }
+    });
+  }
 });
 
 document.querySelectorAll(".rate-button").forEach((btn) => {

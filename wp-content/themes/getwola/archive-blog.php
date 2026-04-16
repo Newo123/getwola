@@ -2,28 +2,8 @@
 
 require_once(__DIR__ . '/inc/breadcrumbs.php');
 
-$paged = max(1, get_query_var('paged'));
-
-$term = get_queried_object();
-
-$tax_query = array();
-
-if ($term && !is_wp_error($term) && isset($term->slug)) {
-  $tax_query[] = array(
-    'taxonomy' => 'categories',
-    'field' => 'slug',
-    'terms' => $term->slug,
-  );
-}
-
-$query = new WP_Query(array(
-  'post_type' => 'blog',
-  'post_status' => 'publish',
-  'posts_per_page' => 12,
-  'paged' => $paged,
-  'tax_query' => $tax_query,
-));
-
+global $wp_query;
+$paged = get_query_var('paged') ?: 1;
 
 ?>
 
@@ -51,10 +31,10 @@ $query = new WP_Query(array(
       </h1>
       <div class="blog-container">
         <div class="blog-list-wrapper">
-          <?php if ($query->have_posts()): ?>
+          <?php if ($wp_query->have_posts()): ?>
             <ul class="blog-list">
-              <?php while ($query->have_posts()):
-                $query->the_post();
+              <?php while ($wp_query->have_posts()):
+                $wp_query->the_post();
 
                 $link = get_permalink();
                 $title = get_the_title();
@@ -99,7 +79,7 @@ $query = new WP_Query(array(
           <!-- Пагинация начало -->
 
           <?php
-          $total_pages = $query->max_num_pages;
+          $total_pages = $wp_query->max_num_pages;
 
           if ($total_pages > 1):
 
@@ -193,7 +173,7 @@ $query = new WP_Query(array(
           </ul>
           <!-- Фильтр конец -->
 
-          <div class="subscribe">
+          <div id="open-modal-btn" role="button" class="subscribe">
             <svg aria-label="Подпишитесь" role="img" viewBox="0 0 800 200">
               <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="80" font-weight="600"
                 fill="white" stroke="#2f6df6" stroke-width="49" stroke-linejoin="round" stroke-linecap="round"
@@ -201,12 +181,13 @@ $query = new WP_Query(array(
                 Подпишитесь
               </text>
             </svg>
+
             <p class="subscribe-text">
               на рассылку <br />
               наших новостей <br />
               и акций
             </p>
-            <button id="open-modal-btn" type="button" class="subscribe-button">
+            <button type="button" class="subscribe-button">
               Подписаться
             </button>
           </div>

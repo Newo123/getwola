@@ -65,9 +65,6 @@ define('DB_CHARSET', 'utf8mb4');
 define('DB_COLLATE', '');
 
 
-define('WP_HOME', 'http://localhost:8080');
-define('WP_SITEURL', 'http://localhost:8080');
-
 /**#@+
  * Authentication unique keys and salts.
  *
@@ -128,6 +125,8 @@ define('WP_DEBUG', false);
 if (!defined('ABSPATH')) {
   define('ABSPATH', __DIR__ . '/');
 }
+// define('WP_HOME', 'http://localhost:8080/blog');
+// define('WP_SITEURL', 'http://localhost:8080/blog');
 
 /** Sets up WordPress vars and included files. */
 require_once ABSPATH . 'wp-settings.php';
